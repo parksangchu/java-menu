@@ -1,6 +1,7 @@
 package menu.domain;
 
 import camp.nextstep.edu.missionutils.Randoms;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -19,22 +20,33 @@ public class Coach {
         this.intolerantFood = intolerantFood;
     }
 
-    public String pickMenu() {
-        List<String> menus = bringRecommendMenus();
+    public List<String> pickMenus(int categoryNumber) {
+        List<String> menus = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            String menu = pickMenu(categoryNumber);
+            menus.add(menu);
+        }
+        return menus;
+    }
+
+    private String pickMenu(int categoryNumber) {
+        List<String> menus = bringRecommendMenus(categoryNumber);
         String menu = Randoms.shuffle(menus).get(0);
         recommendFood.addFood(menu);
         return menu;
     }
 
-    private List<String> bringRecommendMenus() {
-        MenuCategory menuCategory = MenuCategoryRecommender.recommendMenuCategory(NumberGenerator.generateNumber());
+    private List<String> bringRecommendMenus(int categoryNumber) {
+        MenuCategory menuCategory = MenuCategoryRecommender.recommendMenuCategory(categoryNumber);
         List<String> menus = menuCategory.getMenus();
         return menus.stream()
-                .filter(menu -> !intolerantFood.getFoods()
-                        .contains(menu))
-                .filter(menu -> !recommendFood.getFoods()
-                        .contains(menu))
+                .filter(menu -> !intolerantFood.isIntolerantFood(menu))
+                .filter(menu -> !recommendFood.isAlreadyEating(menu))
                 .collect(Collectors.toList());
+    }
+
+    public boolean isFullCategorySize(int categoryNumber) {
+        return recommendFood.isFullCategorySize(categoryNumber);
     }
 
     public CoachName getCoachName() {

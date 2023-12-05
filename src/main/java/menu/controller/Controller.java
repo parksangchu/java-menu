@@ -15,7 +15,7 @@ public class Controller {
         OutputView.printStartNotice();
         CoachGroup coachGroup = createCoachGroup();
         initIntolerantFoods(coachGroup);
-        coachGroup.pickMenus();
+        List<List<String>> result = new ArrayList<>();
     }
 
     private CoachGroup createCoachGroup() {

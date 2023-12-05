@@ -23,7 +23,7 @@ public class RecommendFood {
                 .map(MenuCategory::getValue)
                 .collect(Collectors.toList());
         int categorySize = Collections.frequency(categoryNumbers, number);
-        return categorySize == 2;
+        return categorySize == FULL_CATEGORY_SIZE;
     }
 
     public List<String> getFoods() {

@@ -30,10 +30,23 @@ public class CoachGroup {
         }
     }
 
-    public List<String> pickMenus() {
+    public List<List<String>> pickTotalMenus() {
         return coaches.stream()
-                .map(Coach::pickMenu)
+                .map(coach -> coach.pickMenus(bringCategoryNumber()))
                 .collect(Collectors.toList());
+    }
+
+    private int bringCategoryNumber() {
+        int randomNumber;
+        do {
+            randomNumber = NumberGenerator.generateNumber();
+        } while (isFullCategorySize(randomNumber));
+        return randomNumber;
+    }
+
+    private boolean isFullCategorySize(int randomNumber) {
+        return coaches.stream()
+                .anyMatch(coach -> coach.isFullCategorySize(randomNumber));
     }
 
     public List<Coach> getCoaches() {
