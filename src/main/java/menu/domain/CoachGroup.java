@@ -1,6 +1,7 @@
 package menu.domain;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CoachGroup {
     private static final int MIN_SIZE = 2;
@@ -27,6 +28,12 @@ public class CoachGroup {
         if (coaches.size() < MIN_SIZE || coaches.size() > MAX_SIZE) {
             throw new IllegalArgumentException(SIZE_ERROR);
         }
+    }
+
+    private List<String> pickMenus() {
+        return coaches.stream()
+                .map(Coach::pickMenu)
+                .collect(Collectors.toList());
     }
 
     public List<Coach> getCoaches() {

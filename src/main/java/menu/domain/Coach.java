@@ -12,15 +12,17 @@ public class Coach {
 
     public Coach(CoachName coachName) {
         this.coachName = coachName;
+        alreadyEatenFood = new AlreadyEatenFood();
     }
 
     public void initIntolerantFood(IntolerantFood intolerantFood) {
         this.intolerantFood = intolerantFood;
     }
 
-    public String pickRecommendMenu() {
+    public String pickMenu() {
         List<String> menus = bringRecommendMenus();
         String menu = Randoms.shuffle(menus).get(0);
+        alreadyEatenFood.addFood(menu);
         return menu;
     }
 
@@ -29,6 +31,8 @@ public class Coach {
         List<String> menus = menuCategory.getMenus();
         return menus.stream()
                 .filter(menu -> !intolerantFood.getFoods()
+                        .contains(menu))
+                .filter(menu -> !alreadyEatenFood.getFoods()
                         .contains(menu))
                 .collect(Collectors.toList());
     }

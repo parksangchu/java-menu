@@ -9,4 +9,8 @@ public class AlreadyEatenFood {
     public void addFood(String food) {
         foods.add(food);
     }
+
+    public List<String> getFoods() {
+        return foods;
+    }
 }
