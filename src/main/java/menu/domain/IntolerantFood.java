@@ -30,8 +30,4 @@ public class IntolerantFood {
     public boolean isIntolerantFood(String food) {
         return foods.contains(food);
     }
-
-    public List<String> getFoods() {
-        return foods;
-    }
 }

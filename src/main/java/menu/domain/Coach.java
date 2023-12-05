@@ -1,6 +1,7 @@
 package menu.domain;
 
 import camp.nextstep.edu.missionutils.Randoms;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -43,8 +44,11 @@ public class Coach {
         return coachName;
     }
 
-    public List<String> getRecommendFood() {
-        return recommendFood.getFoods();
+    public List<String> createResult() {
+        List<String> recommendResult = new ArrayList<>();
+        recommendResult.add(coachName.getName());
+        recommendResult.addAll(recommendFood.getFoods());
+        return recommendResult;
     }
 
     @Override

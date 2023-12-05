@@ -4,7 +4,7 @@ import java.util.List;
 
 public class OutputView {
     private static final String START_NOTICE = "점심 메뉴 추천을 시작합니다.";
-    private static final String ROW_FORMAT = "[ %s | %s | %s | %s | %s | %s ]";
+    private static final String ROW_FORMAT = "[ %s | %s | %s | %s | %s | %s ]\n";
 
     public static void printError(Exception e) {
         System.out.println(e.getMessage());
@@ -26,7 +26,6 @@ public class OutputView {
                         , row.get(3)
                         , row.get(4));
             }
-            System.out.println();
         }
     }
 }

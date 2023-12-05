@@ -30,20 +30,18 @@ public class CoachGroup {
         }
     }
 
-    public List<List<String>> pickTotalMenus() {
+    public void pickTotalMenus() {
         for (int i = 0; i < 5; i++) {
             int categoryNumber = bringCategoryNumber();
             coaches.forEach(coach -> coach.pickMenu(categoryNumber));
         }
-        return coaches.stream()
-                .map(coach -> coach.getRecommendFood())
-                .collect(Collectors.toList());
     }
 
     private int bringCategoryNumber() {
         int randomNumber;
         do {
             randomNumber = NumberGenerator.generateNumber();
+            System.out.println(randomNumber);
         } while (isFullCategorySize(randomNumber));
         return randomNumber;
     }
@@ -51,6 +49,12 @@ public class CoachGroup {
     private boolean isFullCategorySize(int randomNumber) {
         return coaches.stream()
                 .anyMatch(coach -> coach.isFullCategorySize(randomNumber));
+    }
+
+    public List<List<String>> createTotalResult() {
+        return coaches.stream()
+                .map(Coach::createResult)
+                .collect(Collectors.toList());
     }
 
     public List<Coach> getCoaches() {
