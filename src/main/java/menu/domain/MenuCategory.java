@@ -28,6 +28,12 @@ public enum MenuCategory {
                 .orElse(NONE);
     }
 
+    public static boolean isValidFood(String food) {
+        return Arrays.stream(values())
+                .anyMatch(menuCategory -> menuCategory.menus
+                        .contains(food));
+    }
+
     public String getCategoryName() {
         return categoryName;
     }

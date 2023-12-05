@@ -26,4 +26,8 @@ public class CoachName {
             throw new IllegalArgumentException(INVALID_RANGE_ERROR);
         }
     }
+
+    public String getName() {
+        return name;
+    }
 }
