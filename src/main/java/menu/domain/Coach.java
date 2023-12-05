@@ -1,7 +1,6 @@
 package menu.domain;
 
 import camp.nextstep.edu.missionutils.Randoms;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -9,7 +8,7 @@ import java.util.stream.Collectors;
 public class Coach {
     private final CoachName coachName;
     private IntolerantFood intolerantFood;
-    private RecommendFood recommendFood;
+    private final RecommendFood recommendFood;
 
     public Coach(CoachName coachName) {
         this.coachName = coachName;
@@ -20,20 +19,11 @@ public class Coach {
         this.intolerantFood = intolerantFood;
     }
 
-    public List<String> pickMenus(int categoryNumber) {
-        List<String> menus = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            String menu = pickMenu(categoryNumber);
-            menus.add(menu);
-        }
-        return menus;
-    }
 
-    private String pickMenu(int categoryNumber) {
+    public void pickMenu(int categoryNumber) {
         List<String> menus = bringRecommendMenus(categoryNumber);
         String menu = Randoms.shuffle(menus).get(0);
         recommendFood.addFood(menu);
-        return menu;
     }
 
     private List<String> bringRecommendMenus(int categoryNumber) {
@@ -51,6 +41,10 @@ public class Coach {
 
     public CoachName getCoachName() {
         return coachName;
+    }
+
+    public List<String> getRecommendFood() {
+        return recommendFood.getFoods();
     }
 
     @Override

@@ -31,8 +31,12 @@ public class CoachGroup {
     }
 
     public List<List<String>> pickTotalMenus() {
+        for (int i = 0; i < 5; i++) {
+            int categoryNumber = bringCategoryNumber();
+            coaches.forEach(coach -> coach.pickMenu(categoryNumber));
+        }
         return coaches.stream()
-                .map(coach -> coach.pickMenus(bringCategoryNumber()))
+                .map(coach -> coach.getRecommendFood())
                 .collect(Collectors.toList());
     }
 
