@@ -17,4 +17,8 @@ public class IntolerantFood {
             throw new IllegalArgumentException(INVALID_MENU_NAME);
         }
     }
+
+    public List<String> getFoods() {
+        return foods;
+    }
 }
