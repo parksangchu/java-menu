@@ -8,11 +8,11 @@ import java.util.stream.Collectors;
 public class Coach {
     private final CoachName coachName;
     private IntolerantFood intolerantFood;
-    private AlreadyEatenFood alreadyEatenFood;
+    private RecommendFood recommendFood;
 
     public Coach(CoachName coachName) {
         this.coachName = coachName;
-        alreadyEatenFood = new AlreadyEatenFood();
+        recommendFood = new RecommendFood();
     }
 
     public void initIntolerantFood(IntolerantFood intolerantFood) {
@@ -22,7 +22,7 @@ public class Coach {
     public String pickMenu() {
         List<String> menus = bringRecommendMenus();
         String menu = Randoms.shuffle(menus).get(0);
-        alreadyEatenFood.addFood(menu);
+        recommendFood.addFood(menu);
         return menu;
     }
 
@@ -32,7 +32,7 @@ public class Coach {
         return menus.stream()
                 .filter(menu -> !intolerantFood.getFoods()
                         .contains(menu))
-                .filter(menu -> !alreadyEatenFood.getFoods()
+                .filter(menu -> !recommendFood.getFoods()
                         .contains(menu))
                 .collect(Collectors.toList());
     }

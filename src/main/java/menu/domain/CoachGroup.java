@@ -30,7 +30,7 @@ public class CoachGroup {
         }
     }
 
-    private List<String> pickMenus() {
+    public List<String> pickMenus() {
         return coaches.stream()
                 .map(Coach::pickMenu)
                 .collect(Collectors.toList());
