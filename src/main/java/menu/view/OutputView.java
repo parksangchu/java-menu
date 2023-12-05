@@ -4,7 +4,12 @@ import java.util.List;
 
 public class OutputView {
     private static final String START_NOTICE = "점심 메뉴 추천을 시작합니다.";
-    private static final String ROW_FORMAT = "[ %s | %s | %s | %s | %s | %s ]\n";
+    private static final String CATEGORY_LINE = "카테고리";
+    private static final String RESULT_NOTICE = "\n메뉴 추천 결과입니다.";
+    private static final String RESULT_TITLE = "[ 구분 | 월요일 | 화요일 | 수요일 | 목요일 | 금요일 ]";
+    private static final String LINE_FORMAT = "[ %s ]\n";
+    private static final String DELIMITER = " | ";
+    private static final String END_NOTICE = "\n추천을 완료했습니다.";
 
     public static void printError(Exception e) {
         System.out.println(e.getMessage());
@@ -14,18 +19,23 @@ public class OutputView {
         System.out.println(START_NOTICE);
     }
 
-    public static void printResult(List<List<String>> result) {
-        System.out.printf(ROW_FORMAT, "구분", "월요일", "화요일", "수요일", "목요일", "금요일");
-        for (int i = 0; i < result.size(); i++) {
-            for (int j = 0; j < 5; j++) {
-                List<String> row = result.get(i);
-                System.out.printf(ROW_FORMAT
-                        , row.get(0)
-                        , row.get(1)
-                        , row.get(2)
-                        , row.get(3)
-                        , row.get(4));
-            }
-        }
+
+    public static void printResult(List<String> categories, List<List<String>> result) {
+        System.out.println(RESULT_NOTICE);
+        System.out.println(RESULT_TITLE);
+        printCategories(categories);
+        result.stream()
+                .map(OutputView::convertToString)
+                .forEach(line -> System.out.printf(LINE_FORMAT, line));
+        System.out.println(END_NOTICE);
+    }
+
+    private static void printCategories(List<String> categories) {
+        categories.add(0, CATEGORY_LINE);
+        System.out.printf(LINE_FORMAT, convertToString(categories));
+    }
+
+    private static String convertToString(List<String> line) {
+        return String.join(DELIMITER, line);
     }
 }

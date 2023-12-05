@@ -1,5 +1,6 @@
 package menu.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,18 +31,29 @@ public class CoachGroup {
         }
     }
 
-    public void pickTotalMenus() {
+    public List<String> createCategories() {
+        List<Integer> categoryNumbers = createCategoryNumbers();
+        return categoryNumbers.stream()
+                .map(categoryNumber -> MenuCategory
+                        .from(categoryNumber)
+                        .getCategoryName())
+                .collect(Collectors.toList());
+    }
+
+    private List<Integer> createCategoryNumbers() {
+        List<Integer> categoryNumbers = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             int categoryNumber = bringCategoryNumber();
             coaches.forEach(coach -> coach.pickMenu(categoryNumber));
+            categoryNumbers.add(categoryNumber);
         }
+        return categoryNumbers;
     }
 
     private int bringCategoryNumber() {
         int randomNumber;
         do {
             randomNumber = NumberGenerator.generateNumber();
-            System.out.println(randomNumber);
         } while (isFullCategorySize(randomNumber));
         return randomNumber;
     }
