@@ -1,5 +1,7 @@
 package menu.domain;
 
+import java.util.Objects;
+
 public class CoachName {
     private static final String TYPE_REGEX = "[가-힣]*";
     private static final int MIN_LENGTH = 2;
@@ -29,5 +31,22 @@ public class CoachName {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof CoachName)) {
+            return false;
+        }
+        CoachName coachName = (CoachName) o;
+        return Objects.equals(name, coachName.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
     }
 }

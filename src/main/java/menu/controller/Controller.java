@@ -2,6 +2,7 @@ package menu.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import menu.domain.Coach;
 import menu.domain.CoachGroup;
 import menu.domain.CoachName;
@@ -13,19 +14,16 @@ public class Controller {
     public void start() {
         OutputView.printStartNotice();
         CoachGroup coachGroup = createCoachGroup();
+        initIntolerantFoods(coachGroup);
     }
 
     private CoachGroup createCoachGroup() {
         while (true) {
             try {
-                List<Coach> coaches = new ArrayList<>();
                 List<CoachName> coachNames = createCoachNames();
-                for (CoachName coachName : coachNames) {
-                    IntolerantFood intolerantFood = createIntolerantFood(coachName);
-                    Coach coach = new Coach(coachName, intolerantFood);
-                    coaches.add(coach);
-                }
-                return new CoachGroup(coaches);
+                return new CoachGroup(coachNames.stream()
+                        .map(Coach::new)
+                        .collect(Collectors.toList()));
             } catch (IllegalArgumentException e) {
                 OutputView.printError(e);
             }
@@ -45,6 +43,12 @@ public class Controller {
                 OutputView.printError(e);
             }
         }
+    }
+
+    private void initIntolerantFoods(CoachGroup coachGroup) {
+        coachGroup.getCoaches()
+                .forEach(coach -> coach
+                        .initIntolerantFood(createIntolerantFood(coach.getCoachName())));
     }
 
     private IntolerantFood createIntolerantFood(CoachName coachName) {
