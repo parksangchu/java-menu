@@ -13,8 +13,8 @@ public class RecommendFood {
         foods.add(food);
     }
 
-    public boolean isAlreadyEating(String menu) {
-        return foods.contains(menu);
+    public boolean isUneaten(String menu) {
+        return !foods.contains(menu);
     }
 
     public boolean isFullCategorySize(int number) {

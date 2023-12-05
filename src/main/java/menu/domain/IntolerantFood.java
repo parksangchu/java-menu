@@ -27,7 +27,7 @@ public class IntolerantFood {
         }
     }
 
-    public boolean isIntolerantFood(String food) {
-        return foods.contains(food);
+    public boolean isEdible(String food) {
+        return !foods.contains(food);
     }
 }

@@ -16,8 +16,8 @@ public class Controller {
         CoachGroup coachGroup = createCoachGroup();
         initIntolerantFoods(coachGroup);
         List<String> categories = coachGroup.createCategories();
-        List<List<String>> result = coachGroup.createTotalResult();
-        OutputView.printResult(categories, result);
+        List<List<String>> totalMenus = coachGroup.createTotalMenus();
+        OutputView.printResult(categories, totalMenus);
     }
 
     private CoachGroup createCoachGroup() {

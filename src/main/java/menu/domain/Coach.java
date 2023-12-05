@@ -20,19 +20,18 @@ public class Coach {
         this.intolerantFood = intolerantFood;
     }
 
-
     public void pickMenu(int categoryNumber) {
-        List<String> menus = bringRecommendMenus(categoryNumber);
+        List<String> menus = filterMenus(categoryNumber);
         String menu = Randoms.shuffle(menus).get(0);
         recommendFood.addFood(menu);
     }
 
-    private List<String> bringRecommendMenus(int categoryNumber) {
-        MenuCategory menuCategory = MenuCategoryRecommender.recommendMenuCategory(categoryNumber);
+    private List<String> filterMenus(int categoryNumber) {
+        MenuCategory menuCategory = Recommender.recommendMenuCategory(categoryNumber);
         List<String> menus = menuCategory.getMenus();
         return menus.stream()
-                .filter(menu -> !intolerantFood.isIntolerantFood(menu))
-                .filter(menu -> !recommendFood.isAlreadyEating(menu))
+                .filter(intolerantFood::isEdible)
+                .filter(recommendFood::isUneaten)
                 .collect(Collectors.toList());
     }
 
@@ -44,7 +43,7 @@ public class Coach {
         return coachName;
     }
 
-    public List<String> createResult() {
+    public List<String> createMenus() {
         List<String> recommendResult = new ArrayList<>();
         recommendResult.add(coachName.getName());
         recommendResult.addAll(recommendFood.getFoods());

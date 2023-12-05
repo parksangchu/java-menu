@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 public class CoachGroup {
     private static final int MIN_SIZE = 2;
     private static final int MAX_SIZE = 5;
+    private static final int DAYS_SIZE = 5;
     private static final String DUPLICATED_ERROR = "[ERROR] 코치 이름은 중복될 수 없습니다.";
     private static final String SIZE_ERROR = "[ERROR] 코치는 최소 2명에서 최대5명까지 입력해야합니다.";
     private final List<Coach> coaches;
@@ -42,10 +43,10 @@ public class CoachGroup {
 
     private List<Integer> createCategoryNumbers() {
         List<Integer> categoryNumbers = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < DAYS_SIZE; i++) {
             int categoryNumber = bringCategoryNumber();
-            coaches.forEach(coach -> coach.pickMenu(categoryNumber));
             categoryNumbers.add(categoryNumber);
+            pickMenus(categoryNumber);
         }
         return categoryNumbers;
     }
@@ -58,14 +59,18 @@ public class CoachGroup {
         return randomNumber;
     }
 
+    private void pickMenus(int categoryNumber) {
+        coaches.forEach(coach -> coach.pickMenu(categoryNumber));
+    }
+
     private boolean isFullCategorySize(int randomNumber) {
         return coaches.stream()
                 .anyMatch(coach -> coach.isFullCategorySize(randomNumber));
     }
 
-    public List<List<String>> createTotalResult() {
+    public List<List<String>> createTotalMenus() {
         return coaches.stream()
-                .map(Coach::createResult)
+                .map(Coach::createMenus)
                 .collect(Collectors.toList());
     }
 
