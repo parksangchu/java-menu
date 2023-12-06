@@ -28,13 +28,6 @@ public enum MenuCategory {
                 .orElse(NONE);
     }
 
-    public static MenuCategory from(String menuName) {
-        return Arrays.stream(values())
-                .filter(menuCategory -> menuCategory.menus.contains(menuName))
-                .findFirst()
-                .orElse(NONE);
-    }
-
 
     public static boolean has(String menuName) {
         return Arrays.stream(values())
