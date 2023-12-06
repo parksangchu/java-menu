@@ -21,9 +21,9 @@ public enum MenuCategory {
         this.menus = menus;
     }
 
-    public static MenuCategory from(int i) {
+    public static MenuCategory from(int value) {
         return Arrays.stream(values())
-                .filter(menuCategory -> menuCategory.value == i)
+                .filter(menuCategory -> menuCategory.value == value)
                 .findFirst()
                 .orElse(NONE);
     }
@@ -36,10 +36,10 @@ public enum MenuCategory {
     }
 
 
-    public static boolean isValidFood(String food) {
+    public static boolean has(String menuName) {
         return Arrays.stream(values())
                 .anyMatch(menuCategory -> menuCategory.menus
-                        .contains(food));
+                        .contains(menuName));
     }
 
     public String getCategoryName() {

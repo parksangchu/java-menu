@@ -3,10 +3,12 @@ package menu.controller;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import menu.domain.CategoryRecommender;
 import menu.domain.Coach;
 import menu.domain.CoachGroup;
 import menu.domain.CoachName;
-import menu.domain.IntolerantFood;
+import menu.domain.ExcludedMenu;
+import menu.domain.MenuCategory;
 import menu.view.InputView;
 import menu.view.OutputView;
 
@@ -14,9 +16,10 @@ public class Controller {
     public void start() {
         OutputView.printStartNotice();
         CoachGroup coachGroup = createCoachGroup();
-        initIntolerantFoods(coachGroup);
-        List<String> categories = coachGroup.createCategories();
-        List<List<String>> totalMenus = coachGroup.createTotalMenus();
+        initExcludedFoods(coachGroup);
+        List<MenuCategory> categories = CategoryRecommender.recommendCategories(coachGroup);
+        coachGroup.pickMenu(categories);
+        List<List<String>> totalMenus = coachGroup.createRecommendResult();
         OutputView.printResult(categories, totalMenus);
     }
 
@@ -48,17 +51,17 @@ public class Controller {
         }
     }
 
-    private void initIntolerantFoods(CoachGroup coachGroup) {
+    private void initExcludedFoods(CoachGroup coachGroup) {
         coachGroup.getCoaches()
                 .forEach(coach -> coach
-                        .initIntolerantFood(createIntolerantFood(coach.getCoachName())));
+                        .initExcludedMenu(createExcludedFood(coach.getCoachName())));
     }
 
-    private IntolerantFood createIntolerantFood(CoachName coachName) {
+    private ExcludedMenu createExcludedFood(CoachName coachName) {
         while (true) {
             try {
-                List<String> foods = InputView.readIntolerantFood(coachName.getName());
-                return new IntolerantFood(foods);
+                List<String> foods = InputView.readExcludedFood(coachName.getName());
+                return new ExcludedMenu(foods);
             } catch (IllegalArgumentException e) {
                 OutputView.printError(e);
             }

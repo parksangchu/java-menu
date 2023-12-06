@@ -2,6 +2,7 @@ package menu.view;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import menu.domain.MenuCategory;
 
 public class OutputView {
     private static final String START_NOTICE = "점심 메뉴 추천을 시작합니다.";
@@ -23,7 +24,7 @@ public class OutputView {
     }
 
 
-    public static void printResult(List<String> categories, List<List<String>> result) {
+    public static void printResult(List<MenuCategory> categories, List<List<String>> result) {
         System.out.println(RESULT_NOTICE);
         printDaysOfWeek();
         printCategories(categories);
@@ -39,9 +40,12 @@ public class OutputView {
         System.out.printf(LINE_FORMAT, convertToString(daysOfWeek));
     }
 
-    private static void printCategories(List<String> categories) {
-        categories.add(0, CATEGORY_TITLE);
-        System.out.printf(LINE_FORMAT, convertToString(categories));
+    private static void printCategories(List<MenuCategory> categories) {
+        List<String> categoryNames = categories.stream()
+                .map(MenuCategory::getCategoryName)
+                .collect(Collectors.toList());
+        categoryNames.add(0, CATEGORY_TITLE);
+        System.out.printf(LINE_FORMAT, convertToString(categoryNames));
     }
 
     private static void printMenus(List<List<String>> result) {

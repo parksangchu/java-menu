@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 public class InputView {
     private static final String ASK_COACH_NAME = "\n코치의 이름을 입력해 주세요. (, 로 구분)";
-    private static final String ASK_INTOLERANT_FOOD = "\n%s(이)가 못 먹는 메뉴를 입력해 주세요.\n";
+    private static final String ASK_EXCLUDED_FOOD = "\n%s(이)가 못 먹는 메뉴를 입력해 주세요.\n";
 
     private static final String DELIMITER = ",";
 
@@ -23,8 +23,8 @@ public class InputView {
                 .collect(Collectors.toList());
     }
 
-    public static List<String> readIntolerantFood(String coachName) {
-        System.out.printf(ASK_INTOLERANT_FOOD, coachName);
+    public static List<String> readExcludedFood(String coachName) {
+        System.out.printf(ASK_EXCLUDED_FOOD, coachName);
         String input = Console.readLine();
         return divide(input);
     }

@@ -8,45 +8,44 @@ import java.util.stream.Collectors;
 
 public class Coach {
     private final CoachName coachName;
-    private IntolerantFood intolerantFood;
-    private final RecommendFood recommendFood;
+    private ExcludedMenu excludedMenu;
+    private final RecommendMenu recommendMenu;
 
     public Coach(CoachName coachName) {
         this.coachName = coachName;
-        recommendFood = new RecommendFood();
+        recommendMenu = new RecommendMenu();
     }
 
-    public void initIntolerantFood(IntolerantFood intolerantFood) {
-        this.intolerantFood = intolerantFood;
+    public void initExcludedMenu(ExcludedMenu excludedMenu) {
+        this.excludedMenu = excludedMenu;
     }
 
-    public void pickMenu(int categoryNumber) {
-        List<String> menus = filterMenus(categoryNumber);
+    public void pickMenu(MenuCategory menuCategory) {
+        List<String> menus = filterMenus(menuCategory);
         String menu = Randoms.shuffle(menus).get(0);
-        recommendFood.addFood(menu);
+        recommendMenu.add(menu);
     }
 
-    private List<String> filterMenus(int categoryNumber) {
-        MenuCategory menuCategory = Recommender.recommendMenuCategory(categoryNumber);
+    private List<String> filterMenus(MenuCategory menuCategory) {
         List<String> menus = menuCategory.getMenus();
         return menus.stream()
-                .filter(intolerantFood::isEdible)
-                .filter(recommendFood::isUneaten)
+                .filter(excludedMenu::isEdible)
+                .filter(recommendMenu::isUneaten)
                 .collect(Collectors.toList());
     }
 
-    public boolean isFullCategorySize(int categoryNumber) {
-        return recommendFood.isFullCategorySize(categoryNumber);
+    public boolean isFull(int categoryNumber) {
+        return recommendMenu.isFull(categoryNumber);
     }
 
     public CoachName getCoachName() {
         return coachName;
     }
 
-    public List<String> createMenus() {
+    public List<String> createRecommendResult() {
         List<String> recommendResult = new ArrayList<>();
         recommendResult.add(coachName.getName());
-        recommendResult.addAll(recommendFood.getFoods());
+        recommendResult.addAll(recommendMenu.getMenus());
         return recommendResult;
     }
 
