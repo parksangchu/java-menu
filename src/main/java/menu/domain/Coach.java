@@ -34,10 +34,6 @@ public class Coach {
                 .collect(Collectors.toList());
     }
 
-    public boolean isFull(int categoryNumber) {
-        return recommendedMenu.isFull(categoryNumber);
-    }
-
     public CoachName getCoachName() {
         return coachName;
     }

@@ -17,7 +17,7 @@ public class Controller {
         OutputView.printStartNotice();
         CoachGroup coachGroup = createCoachGroup();
         initExcludedFoods(coachGroup);
-        List<MenuCategory> categories = CategoryRecommender.recommendCategories(coachGroup);
+        List<MenuCategory> categories = CategoryRecommender.recommendCategories();
         coachGroup.pickMenu(categories);
         List<List<String>> recommendResult = coachGroup.createRecommendResult();
         OutputView.printResult(categories, recommendResult);

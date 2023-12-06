@@ -30,11 +30,6 @@ public class CoachGroup {
         }
     }
 
-    public boolean isFull(int randomNumber) {
-        return coaches.stream()
-                .anyMatch(coach -> coach.isFull(randomNumber));
-    }
-
     public void pickMenu(List<MenuCategory> menuCategories) {
         for (MenuCategory menuCategory : menuCategories) {
             coaches.forEach(coach -> coach.pickMenu(menuCategory));

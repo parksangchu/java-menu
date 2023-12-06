@@ -1,25 +1,26 @@
 package menu.domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class CategoryRecommender {
-    private static final int DAYS_SIZE = 5;
+    private static final int CATEGORY_CAPACITY = 2;
+    private static final int DAYS_SIZE = 10;
 
-    public static List<MenuCategory> recommendCategories(CoachGroup coachGroup) {
+    public static List<MenuCategory> recommendCategories() {
         List<MenuCategory> categories = new ArrayList<>();
-        for (int i = 0; i < DAYS_SIZE; i++) {
-            MenuCategory menuCategory = recommendCategory(coachGroup);
-            categories.add(menuCategory);
+        while (categories.size() != DAYS_SIZE) {
+            MenuCategory menuCategory = recommendCategory();
+            if (Collections.frequency(categories, menuCategory) != CATEGORY_CAPACITY) {
+                categories.add(menuCategory);
+            }
         }
         return categories;
     }
 
-    private static MenuCategory recommendCategory(CoachGroup coachGroup) {
-        int randomNumber;
-        do {
-            randomNumber = NumberGenerator.generateNumber();
-        } while (coachGroup.isFull(randomNumber));
+    private static MenuCategory recommendCategory() {
+        int randomNumber = NumberGenerator.generateNumber();
         return MenuCategory.from(randomNumber);
     }
 }
