@@ -9,11 +9,11 @@ import java.util.stream.Collectors;
 public class Coach {
     private final CoachName coachName;
     private ExcludedMenu excludedMenu;
-    private final RecommendMenu recommendMenu;
+    private final RecommendedMenu recommendedMenu;
 
     public Coach(CoachName coachName) {
         this.coachName = coachName;
-        recommendMenu = new RecommendMenu();
+        recommendedMenu = new RecommendedMenu();
     }
 
     public void initExcludedMenu(ExcludedMenu excludedMenu) {
@@ -23,19 +23,19 @@ public class Coach {
     public void pickMenu(MenuCategory menuCategory) {
         List<String> menus = filterMenus(menuCategory);
         String menu = Randoms.shuffle(menus).get(0);
-        recommendMenu.add(menu);
+        recommendedMenu.add(menu);
     }
 
     private List<String> filterMenus(MenuCategory menuCategory) {
         List<String> menus = menuCategory.getMenus();
         return menus.stream()
-                .filter(excludedMenu::isEdible)
-                .filter(recommendMenu::isUneaten)
+                .filter(menu -> !excludedMenu.has(menu))
+                .filter(menu -> !recommendedMenu.has(menu))
                 .collect(Collectors.toList());
     }
 
     public boolean isFull(int categoryNumber) {
-        return recommendMenu.isFull(categoryNumber);
+        return recommendedMenu.isFull(categoryNumber);
     }
 
     public CoachName getCoachName() {
@@ -45,7 +45,7 @@ public class Coach {
     public List<String> createRecommendResult() {
         List<String> recommendResult = new ArrayList<>();
         recommendResult.add(coachName.getName());
-        recommendResult.addAll(recommendMenu.getMenus());
+        recommendResult.addAll(recommendedMenu.getMenus());
         return recommendResult;
     }
 

@@ -3,7 +3,7 @@ package menu.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecommendMenu {
+public class RecommendedMenu {
     private static final int CATEGORY_CAPACITY = 2;
     private final List<String> menus = new ArrayList<>();
 
@@ -11,8 +11,8 @@ public class RecommendMenu {
         menus.add(menu);
     }
 
-    public boolean isUneaten(String menu) {
-        return !menus.contains(menu);
+    public boolean has(String menu) {
+        return menus.contains(menu);
     }
 
     public boolean isFull(int number) {

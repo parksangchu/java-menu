@@ -27,7 +27,7 @@ public class ExcludedMenu {
         }
     }
 
-    public boolean isEdible(String food) {
-        return !menus.contains(food);
+    public boolean has(String menu) {
+        return menus.contains(menu);
     }
 }
