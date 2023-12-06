@@ -6,7 +6,7 @@ import java.util.List;
 
 public class CategoryRecommender {
     private static final int CATEGORY_CAPACITY = 2;
-    private static final int DAYS_SIZE = 10;
+    private static final int DAYS_SIZE = 5;
 
     public static List<MenuCategory> recommendCategories() {
         List<MenuCategory> categories = new ArrayList<>();

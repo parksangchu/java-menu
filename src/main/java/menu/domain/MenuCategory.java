@@ -46,10 +46,6 @@ public enum MenuCategory {
         return categoryName;
     }
 
-    public int getValue() {
-        return value;
-    }
-
     public List<String> getMenus() {
         return menus;
     }
