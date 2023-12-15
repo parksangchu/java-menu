@@ -10,5 +10,6 @@ class CoachTest {
         assertThatThrownBy(() -> new Coach("뭉이이이이"))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining(ErrorMessage.INVALID_NAME.getMessage());
+        Coach coach = new Coach("뭉이");
     }
 }

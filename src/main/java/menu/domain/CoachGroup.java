@@ -1,5 +1,6 @@
 package menu.domain;
 
+import java.util.Collections;
 import java.util.List;
 
 public class CoachGroup {
@@ -10,6 +11,10 @@ public class CoachGroup {
     public CoachGroup(List<Coach> coaches) {
         validateSize(coaches);
         this.coaches = coaches;
+    }
+
+    public List<Coach> Coaches() {
+        return Collections.unmodifiableList(coaches);
     }
 
     private void validateSize(List<Coach> coaches) {

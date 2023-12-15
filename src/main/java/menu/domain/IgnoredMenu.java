@@ -13,4 +13,8 @@ public class IgnoredMenu {
     public boolean has(String menu) {
         return menus.contains(menu);
     }
+
+    public List<String> getMenus() {
+        return menus;
+    }
 }

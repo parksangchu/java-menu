@@ -19,7 +19,7 @@ public class Coach {
     }
 
     public void addIgnoredMenu(String menu) {
-        ignoredMenu.addMenu(menu);
+        ignoredMenu.addMenu(MenuCategory.findMenu(menu));
     }
 
     public void addRecommendedMenu(String menu) {
@@ -28,5 +28,9 @@ public class Coach {
 
     public String getName() {
         return name;
+    }
+
+    public IgnoredMenu getIgnoredMenu() {
+        return ignoredMenu;
     }
 }
