@@ -122,4 +122,19 @@ String category = categories.get(Randoms.pickNumberInRange(1, 5));
 
 ### MenuCategory
 
-- 메뉴 카테고리와 메뉴를 저장한다.
+- 메뉴 카테고리를 저장한다.
+
+### MenuCategoryRepository
+
+- 추천된 카테고리 목록을 저장한다.
+
+### RecommendResult
+
+- 코치 이름과 추천 메뉴를 저장한다.
+
+### RecommendResultRepository
+
+- 추천 결과를 저장한다.
+
+  
+

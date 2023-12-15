@@ -2,16 +2,28 @@ package menu.controller;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import menu.domain.CategoryRecommender;
 import menu.domain.Coach;
 import menu.domain.CoachGroup;
+import menu.domain.MenuCategory;
+import menu.domain.MenuCategoryRepository;
+import menu.domain.MenuRecommendService;
+import menu.domain.RecommendResultRepository;
 import menu.view.InputView;
 import menu.view.OutputView;
 
 public class Controller {
     public void start() {
+        OutputView.printStartNotice();
         CoachGroup coachGroup = createCoachGroup();
-        addIgnoredMenu(coachGroup.Coaches());
-        System.out.println(coachGroup.Coaches().get(0).getIgnoredMenu().getMenus().size());
+        addIgnoredMenu(coachGroup.coaches());
+        CategoryRecommender.recommendCategories();
+        List<MenuCategory> menuCategories = MenuCategoryRepository.menuCategories();
+        OutputView.printCategories(menuCategories);
+        MenuRecommendService.recommendMenus(coachGroup.coaches(), menuCategories);
+        MenuRecommendService.createRecommendResult(coachGroup.coaches());
+        OutputView.printRecommendResult(RecommendResultRepository.recommendResults());
+        OutputView.printExitNotice();
     }
 
     private CoachGroup createCoachGroup() {

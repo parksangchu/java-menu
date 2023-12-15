@@ -13,7 +13,7 @@ public class CoachGroup {
         this.coaches = coaches;
     }
 
-    public List<Coach> Coaches() {
+    public List<Coach> coaches() {
         return Collections.unmodifiableList(coaches);
     }
 

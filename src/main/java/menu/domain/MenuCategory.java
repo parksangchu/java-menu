@@ -36,4 +36,12 @@ public enum MenuCategory {
                 .findAny()
                 .orElse(NONE);
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public List<String> getMenus() {
+        return menus;
+    }
 }

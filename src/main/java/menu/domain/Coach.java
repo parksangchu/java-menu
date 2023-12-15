@@ -26,11 +26,15 @@ public class Coach {
         recommendedMenu.addMenu(menu);
     }
 
+    public boolean isAcceptable(String menu) {
+        return !ignoredMenu.has(menu) && !recommendedMenu.has(menu);
+    }
+
     public String getName() {
         return name;
     }
 
-    public IgnoredMenu getIgnoredMenu() {
-        return ignoredMenu;
+    public RecommendResult createRecommendResult() {
+        return new RecommendResult(name, recommendedMenu.getMenus());
     }
 }
