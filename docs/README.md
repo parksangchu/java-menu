@@ -116,7 +116,7 @@ String category = categories.get(Randoms.pickNumberInRange(1, 5));
 
 - 카테고리를 추천한다.
 
-### RecommendService
+### MenuRecommendService
 
 - 메뉴를 추천한다.
 
