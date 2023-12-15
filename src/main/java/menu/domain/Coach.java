@@ -25,4 +25,8 @@ public class Coach {
     public void addRecommendedMenu(String menu) {
         recommendedMenu.addMenu(menu);
     }
+
+    public String getName() {
+        return name;
+    }
 }

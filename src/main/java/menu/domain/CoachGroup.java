@@ -17,5 +17,4 @@ public class CoachGroup {
             throw new IllegalArgumentException(ErrorMessage.INVALID_SIZE.getMessage());
         }
     }
-
 }
