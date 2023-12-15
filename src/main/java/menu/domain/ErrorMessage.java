@@ -2,6 +2,7 @@ package menu.domain;
 
 public enum ErrorMessage {
     INVALID_NAME("유효하지 않은 이름입니다."),
+    INVALID_SIZE("유효하지 않은 코치 숫자입니다."),
     INVALID_MENU("유효하지 않은 메뉴입니다.");
 
 
